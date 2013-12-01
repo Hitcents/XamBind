@@ -49,9 +49,8 @@ namespace XamBind
 					var label = view as UILabel;
 					if (label != null)
 					{
-						Observer.Add(property.Name, value =>
+						Observer.Add<string>(property.Name, text =>
 						{
-							string text = value as string;
 							label.Text = text ?? string.Empty;
 						});
 						continue;
@@ -60,11 +59,11 @@ namespace XamBind
 					var button = view as UIButton;
 					if (button != null)
 					{
-						Observer.Add(property.Name, value =>
+						Observer.Add<string>(property.Name, text =>
 						{
-							string text = value as string;
 							button.SetTitle(text ?? string.Empty, UIControlState.Normal);
 						});
+						continue;
 					}
 				}
 			}

@@ -37,6 +37,11 @@ namespace XamBind
 			}
 		}
 
+		public void Add<T>(string propertyName, Action<T> action)
+		{
+			Add(propertyName, value => action((T)value));
+		}
+
 		public void Add(string propertyName, Action<object> action)
 		{
 			List<Action<object>> actions;
