@@ -29,6 +29,14 @@ namespace XamBind.iOS.Tests
 
 			Assert.AreEqual(_viewModel.Text, _controller.GetText());
 		}
+
+		[Test]
+		public void Button()
+		{
+			_viewModel.ButtonTitle = "WOOT";
+
+			Assert.AreEqual(_viewModel.ButtonTitle, _controller.GetButtonTitle());
+		}
     }
 }
 

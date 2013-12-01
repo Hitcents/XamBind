@@ -56,6 +56,16 @@ namespace XamBind
 						});
 						continue;
 					}
+
+					var button = view as UIButton;
+					if (button != null)
+					{
+						Observer.Add(property.Name, value =>
+						{
+							string text = value as string;
+							button.SetTitle(text ?? string.Empty, UIControlState.Normal);
+						});
+					}
 				}
 			}
 		}

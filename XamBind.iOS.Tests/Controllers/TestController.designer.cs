@@ -13,6 +13,9 @@ namespace XamBind.iOS.Tests
 	partial class TestController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton ButtonTitle { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel Text { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace XamBind.iOS.Tests
 			if (Text != null) {
 				Text.Dispose ();
 				Text = null;
+			}
+
+			if (ButtonTitle != null) {
+				ButtonTitle.Dispose ();
+				ButtonTitle = null;
 			}
 		}
 	}

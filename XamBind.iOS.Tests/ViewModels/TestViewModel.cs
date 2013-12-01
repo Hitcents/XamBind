@@ -11,6 +11,14 @@ namespace XamBind.iOS.Tests
 			get { return _text; }
 			set { _text = value; OnPropertyChanged("Text"); }
 		}
+
+		private string _buttonTitle;
+
+		public string ButtonTitle
+		{
+			get { return _buttonTitle; }
+			set { _buttonTitle = value; OnPropertyChanged("ButtonTitle"); }
+		}
     }
 }
 

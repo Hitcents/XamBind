@@ -15,5 +15,10 @@ namespace XamBind.iOS.Tests
 		{
 			return Text.Text;
 		}
+
+		public string GetButtonTitle()
+		{
+			return ButtonTitle.Title(UIControlState.Normal);
+		}
 	}
 }
