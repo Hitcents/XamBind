@@ -13,7 +13,7 @@ namespace XamBind.iOS.Tests
 	partial class TestController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton ButtonTitle { get; set; }
+		MonoTouch.UIKit.UIButton Search { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel Text { get; set; }
@@ -25,9 +25,9 @@ namespace XamBind.iOS.Tests
 				Text = null;
 			}
 
-			if (ButtonTitle != null) {
-				ButtonTitle.Dispose ();
-				ButtonTitle = null;
+			if (Search != null) {
+				Search.Dispose ();
+				Search = null;
 			}
 		}
 	}

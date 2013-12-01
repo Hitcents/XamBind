@@ -12,13 +12,28 @@ namespace XamBind.iOS.Tests
 			set { _text = value; OnPropertyChanged("Text"); }
 		}
 
-		private string _buttonTitle;
+		private string _searchTitle;
 
-		public string ButtonTitle
+		public string SearchTitle
 		{
-			get { return _buttonTitle; }
-			set { _buttonTitle = value; OnPropertyChanged("ButtonTitle"); }
+			get { return _searchTitle; }
+			set { _searchTitle = value; OnPropertyChanged("SearchTitle"); }
 		}
+
+		private bool _canSearch;
+
+		public bool CanSearch
+		{
+			get { return _canSearch; }
+			set { _canSearch = value; OnPropertyChanged("CanSearch"); }
+		}
+
+		public void Search()
+		{
+			Searched = true;
+		}
+
+		public bool Searched;
     }
 }
 

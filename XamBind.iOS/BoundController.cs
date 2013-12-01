@@ -59,10 +59,23 @@ namespace XamBind
 					var button = view as UIButton;
 					if (button != null)
 					{
-						Observer.Add<string>(property.Name, text =>
+						Observer.Add<string>(property.Name + "Title", text =>
 						{
 							button.SetTitle(text ?? string.Empty, UIControlState.Normal);
 						});
+
+						Observer.Add<bool>("Can" + property.Name, value =>
+						{
+							button.Enabled = value;
+						});
+
+						button.TouchUpInside += (sender, e) => 
+						{
+							var method = ViewModel.GetType().GetMethod(property.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+							if (method != null)
+								method.Invoke(ViewModel, null);
+						};
+
 						continue;
 					}
 				}

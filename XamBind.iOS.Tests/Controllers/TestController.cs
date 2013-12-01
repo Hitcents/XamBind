@@ -16,9 +16,9 @@ namespace XamBind.iOS.Tests
 			return Text.Text;
 		}
 
-		public string GetButtonTitle()
+		public string GetSearchTitle()
 		{
-			return ButtonTitle.Title(UIControlState.Normal);
+			return Search.Title(UIControlState.Normal);
 		}
 	}
 }

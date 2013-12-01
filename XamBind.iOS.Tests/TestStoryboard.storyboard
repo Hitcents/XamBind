@@ -30,7 +30,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="ButtonTitle" destination="HG8-dp-GVj" id="qb2-Qd-8RP"/>
+                        <outlet property="Search" destination="HG8-dp-GVj" id="jee-Ky-fcB"/>
                         <outlet property="Text" destination="OWK-lm-dPX" id="9CP-t1-JY2"/>
                     </connections>
                 </viewController>
