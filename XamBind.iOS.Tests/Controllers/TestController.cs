@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.ObjCRuntime;
 
 namespace XamBind.iOS.Tests
 {
@@ -19,6 +20,11 @@ namespace XamBind.iOS.Tests
 		public string GetSearchTitle()
 		{
 			return Search.Title(UIControlState.Normal);
+		}
+
+		public void Click()
+		{
+			Search.SendActionForControlEvents(UIControlEvent.TouchUpInside);
 		}
 	}
 }

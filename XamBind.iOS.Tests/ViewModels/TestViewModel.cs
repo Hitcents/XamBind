@@ -20,7 +20,7 @@ namespace XamBind.iOS.Tests
 			set { _searchTitle = value; OnPropertyChanged("SearchTitle"); }
 		}
 
-		private bool _canSearch;
+		private bool _canSearch = true;
 
 		public bool CanSearch
 		{

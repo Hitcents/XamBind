@@ -71,9 +71,7 @@ namespace XamBind
 
 						button.TouchUpInside += (sender, e) => 
 						{
-							var method = ViewModel.GetType().GetMethod(property.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
-							if (method != null)
-								method.Invoke(ViewModel, null);
+							Observer.InvokeMethod(property.Name);
 						};
 
 						continue;
