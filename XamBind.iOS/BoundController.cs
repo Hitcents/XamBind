@@ -59,11 +59,6 @@ namespace XamBind
 					var button = view as UIButton;
 					if (button != null)
 					{
-						Observer.Add<string>(property.Name + "Title", text =>
-						{
-							button.SetTitle(text ?? string.Empty, UIControlState.Normal);
-						});
-
 						Observer.Add<bool>("Can" + property.Name, value =>
 						{
 							button.Enabled = value;

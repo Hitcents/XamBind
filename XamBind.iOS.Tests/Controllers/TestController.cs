@@ -12,14 +12,14 @@ namespace XamBind.iOS.Tests
 		{
 		}
 
-		public string GetText()
+		public UILabel GetLabel()
 		{
-			return Text.Text;
+			return Text;
 		}
 
-		public string GetSearchTitle()
+		public UIButton GetButton()
 		{
-			return Search.Title(UIControlState.Normal);
+			return Search;
 		}
 
 		public void Click()

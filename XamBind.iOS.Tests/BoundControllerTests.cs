@@ -25,17 +25,34 @@ namespace XamBind.iOS.Tests
 		[Test]
 		public void Label()
 		{
-			_viewModel.Text = "WOOT";
-
-			Assert.AreEqual(_viewModel.Text, _controller.GetText());
+			for (int i = 0; i < 10000; i++)
+			{
+				_viewModel.Text = i.ToString();
+            	
+				Assert.AreEqual(_viewModel.Text, _controller.GetLabel().Text);
+			}
 		}
 
 		[Test]
-		public void Button()
+		public void ButtonCanClick()
 		{
-			_viewModel.SearchTitle = "WOOT";
+			for (int i = 0; i < 10000; i++)
+			{
+				_viewModel.CanSearch = !_viewModel.CanSearch;
+            	
+				Assert.AreEqual(_viewModel.CanSearch, _controller.GetButton().Enabled);
+			}
+		}
 
-			Assert.AreEqual(_viewModel.SearchTitle, _controller.GetSearchTitle());
+		[Test]
+		public void ButtonClick()
+		{
+			for (int i = 0; i < 10000; i++)
+			{
+				_viewModel.Searched = false;
+				_controller.Click();
+				Assert.IsTrue(_viewModel.Searched);
+			}
 		}
     }
 }

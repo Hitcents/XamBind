@@ -9,7 +9,14 @@ namespace XamBind.iOS.Tests
 		public string Text
 		{
 			get { return _text; }
-			set { _text = value; OnPropertyChanged("Text"); }
+			set
+			{
+				if (_text != value)
+				{
+					_text = value;
+					OnPropertyChanged("Text"); 
+				}
+			}
 		}
 
 		private string _searchTitle;
@@ -17,7 +24,14 @@ namespace XamBind.iOS.Tests
 		public string SearchTitle
 		{
 			get { return _searchTitle; }
-			set { _searchTitle = value; OnPropertyChanged("SearchTitle"); }
+			set 
+			{
+				if (_searchTitle != value)
+				{
+					_searchTitle = value;
+					OnPropertyChanged("SearchTitle"); 
+				}
+			}
 		}
 
 		private bool _canSearch = true;
@@ -25,7 +39,14 @@ namespace XamBind.iOS.Tests
 		public bool CanSearch
 		{
 			get { return _canSearch; }
-			set { _canSearch = value; OnPropertyChanged("CanSearch"); }
+			set
+			{
+				if (_canSearch != value)
+				{
+					_canSearch = value;
+					OnPropertyChanged("CanSearch"); 
+				}
+			}
 		}
 
 		public void Search()

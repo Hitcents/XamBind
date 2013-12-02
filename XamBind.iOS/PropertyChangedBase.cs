@@ -20,20 +20,14 @@ namespace XamBind
 			}
 			remove
 			{
-				var reference = _references.FirstOrDefault(r =>
-				{
-					PropertyChangedEventHandler target;
-						return r.TryGetTarget(out target) && target == value;
-				});
-				if (reference != null)
-					_references.Remove(reference);
+				//Doesn't have to do anything
 			}
 		}        
 
 		protected virtual void OnPropertyChanged(string name)
 		{
+			List<int> indexes = null;
 			var args = new PropertyChangedEventArgs(name);
-			var indexes = new List<int>();
 
 			//Fire the events
 			WeakReference<PropertyChangedEventHandler> reference;
@@ -47,14 +41,19 @@ namespace XamBind
 				}
 				else
 				{
+					if (indexes == null)
+						indexes = new List<int>();
 					indexes.Add(i);
 				}
 			}
 
 			//Delete any stale references, backwards for-loop prevents index issues
-			for (int i = indexes.Count - 1; i >= 0; i--)
+			if (indexes != null)
 			{
-				_references.RemoveAt(i);
+				for (int i = indexes.Count - 1; i >= 0; i--)
+				{
+					_references.RemoveAt(i);
+				}
 			}
 		}
     }

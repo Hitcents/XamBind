@@ -6,21 +6,17 @@ using XamBind.Reflection;
 
 namespace XamBind
 {
-	public class PropertyObserver : IDisposable
+	public class PropertyObserver
     {
 		private readonly INotifyPropertyChanged _target;
 		private readonly Dictionary<string, List<Action<object>>> _actions = new Dictionary<string, List<Action<object>>>();
+		private PropertyChangedEventHandler _handler;
 
 		public PropertyObserver(INotifyPropertyChanged target)
         {
 			_target = target;
-			_target.PropertyChanged += OnPropertyChanged;
+			_target.PropertyChanged += (_handler = OnPropertyChanged);
         }
-
-		~PropertyObserver ()
-		{
-			Dispose();
-		}
 
 		private void OnPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
@@ -57,14 +53,6 @@ namespace XamBind
 		public void InvokeMethod(string methodName)
 		{
 			_target.Invoke(methodName);
-		}
-
-		public void Dispose()
-		{
-			GC.SuppressFinalize(this);
-
-			_target.PropertyChanged -= OnPropertyChanged;
-			_actions.Clear();
 		}
     }
 }
