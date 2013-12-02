@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace XamBind.Reflection
 {
-	public static class Dynamic
+	public static class DynamicExtensions
     {
 		private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _properties = new Dictionary<Type, Dictionary<string, PropertyInfo>>();
 		private static readonly Dictionary<Type, Dictionary<string, MethodInfo>> _methods = new Dictionary<Type, Dictionary<string, MethodInfo>>();
