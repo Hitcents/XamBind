@@ -2,20 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using XamBind.Reflection;
 
 namespace XamBind
 {
 	public class PropertyObserver : IDisposable
     {
-		private readonly INotifyPropertyChanged _object;
+		private readonly INotifyPropertyChanged _target;
 		private readonly Dictionary<string, List<Action<object>>> _actions = new Dictionary<string, List<Action<object>>>();
-		private readonly Dictionary<string, PropertyInfo> _properties = new Dictionary<string, PropertyInfo>();
-		private readonly Dictionary<string, Action> _methods = new Dictionary<string, Action>();
 
-		public PropertyObserver(INotifyPropertyChanged obj)
+		public PropertyObserver(INotifyPropertyChanged target)
         {
-			_object = obj;
-			_object.PropertyChanged += OnPropertyChanged;
+			_target = target;
+			_target.PropertyChanged += OnPropertyChanged;
         }
 
 		~PropertyObserver ()
@@ -23,29 +22,15 @@ namespace XamBind
 			Dispose();
 		}
 
-		private PropertyInfo GetProperty(string propertyName)
-		{
-			PropertyInfo property;
-			if (!_properties.TryGetValue(propertyName, out property))
-			{
-				property = 
-					_properties[propertyName] = _object.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
-			}
-			return property;
-		}
-
 		private void OnPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			List<Action<object>> actions;
 			if (_actions.TryGetValue(e.PropertyName, out actions))
 			{
-				var property = GetProperty(e.PropertyName);
-				if (property != null)
+				var value = _target.GetProperty(e.PropertyName);
+				foreach (var action in actions)
 				{
-					foreach (var action in actions)
-					{
-						action(property.GetValue(_object));
-					}
+					action(value);
 				}
 			}
 		}
@@ -66,30 +51,19 @@ namespace XamBind
 			actions.Add(action);
 
 			//Fire initial event
-			var property = GetProperty(propertyName);
-			if (property != null)
-			{
-				action(property.GetValue(_object));
-			}
+			action(_target.GetProperty(propertyName));
 		}
 
 		public void InvokeMethod(string methodName)
 		{
-			Action action;
-			if (!_methods.TryGetValue(methodName, out action))
-			{
-				action =
-					_methods [methodName] = Delegate.CreateDelegate(typeof(Action), _object, methodName) as Action;
-			}
-			if (action != null)
-				action();
+			_target.Invoke(methodName);
 		}
 
 		public void Dispose()
 		{
 			GC.SuppressFinalize(this);
 
-			_object.PropertyChanged -= OnPropertyChanged;
+			_target.PropertyChanged -= OnPropertyChanged;
 			_actions.Clear();
 		}
     }

@@ -41,5 +41,9 @@
     <Compile Include="BoundController.cs" />
     <Compile Include="PropertyObserver.cs" />
     <Compile Include="PropertyChangedBase.cs" />
+    <Compile Include="Reflection\Dynamic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reflection\" />
   </ItemGroup>
 </Project>
