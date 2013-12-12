@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using XamBind.Reflection;
 
 namespace XamBind
 {
 	[Register("BoundController")]
 	public class BoundController : UIViewController
-    {
+	{
+		private List<NSObject> _observers = new List<NSObject>();
+
         public BoundController()
         {
         }
@@ -46,6 +50,7 @@ namespace XamBind
 				{
 					var view = property.GetValue(this) as UIView;
 
+					//Label
 					var label = view as UILabel;
 					if (label != null)
 					{
@@ -56,6 +61,7 @@ namespace XamBind
 						continue;
 					}
 
+					//Button
 					var button = view as UIButton;
 					if (button != null)
 					{
@@ -68,6 +74,25 @@ namespace XamBind
 						{
 							Observer.InvokeMethod(property.Name);
 						};
+
+						continue;
+					}
+
+					//TextField
+					var textField = view as UITextField;
+					if (textField != null)
+					{
+						Observer.Add<string>(property.Name, text =>
+						{
+							textField.Text = text ?? string.Empty;
+						});
+
+						var observer = NSNotificationCenter.DefaultCenter.AddObserver(UITextField.TextFieldTextDidChangeNotification, n =>
+						{
+							ViewModel.SetProperty(property.Name, textField.Text);
+
+						}, textField);
+						_observers.Add(observer);
 
 						continue;
 					}
