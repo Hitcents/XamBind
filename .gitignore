@@ -109,3 +109,4 @@ UpgradeLog*.XML
 
 #Mac stuff
 *.userprefs
+Resource.designer.cs
