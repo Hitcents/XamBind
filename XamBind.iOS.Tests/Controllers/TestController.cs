@@ -22,6 +22,11 @@ namespace XamBind.iOS.Tests
 			return Search;
 		}
 
+		public UITextField GetTextField()
+		{
+			return TextField;
+		}
+
 		public void Click()
 		{
 			Search.SendActionForControlEvents(UIControlEvent.TouchUpInside);

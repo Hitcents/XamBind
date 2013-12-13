@@ -26,12 +26,19 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="gjv-m8-h08">
+                                <rect key="frame" x="112" y="480" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="Search" destination="HG8-dp-GVj" id="jee-Ky-fcB"/>
                         <outlet property="Text" destination="OWK-lm-dPX" id="9CP-t1-JY2"/>
+                        <outlet property="TextField" destination="gjv-m8-h08" id="wbf-AY-T4a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiU-E6-5Rj" userLabel="First Responder" sceneMemberID="firstResponder"/>

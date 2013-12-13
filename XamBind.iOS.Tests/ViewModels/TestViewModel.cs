@@ -19,17 +19,17 @@ namespace XamBind.iOS.Tests
 			}
 		}
 
-		private string _searchTitle;
+		private string _textField;
 
-		public string SearchTitle
+		public string TextField
 		{
-			get { return _searchTitle; }
-			set 
+			get { return _textField; }
+			set
 			{
-				if (_searchTitle != value)
+				if (_textField != value)
 				{
-					_searchTitle = value;
-					OnPropertyChanged("SearchTitle"); 
+					_textField = value;
+					OnPropertyChanged("TextField"); 
 				}
 			}
 		}

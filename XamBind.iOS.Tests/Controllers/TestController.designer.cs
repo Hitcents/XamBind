@@ -17,17 +17,25 @@ namespace XamBind.iOS.Tests
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel Text { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField TextField { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (Search != null) {
+				Search.Dispose ();
+				Search = null;
+			}
+
 			if (Text != null) {
 				Text.Dispose ();
 				Text = null;
 			}
 
-			if (Search != null) {
-				Search.Dispose ();
-				Search = null;
+			if (TextField != null) {
+				TextField.Dispose ();
+				TextField = null;
 			}
 		}
 	}

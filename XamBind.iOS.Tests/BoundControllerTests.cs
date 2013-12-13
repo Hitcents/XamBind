@@ -10,6 +10,7 @@ namespace XamBind.iOS.Tests
     {
 		private TestController _controller;
 		private TestViewModel _viewModel;
+		private const int Times = 10000;
 
 		[SetUp]
 		public void SetUp()
@@ -23,9 +24,9 @@ namespace XamBind.iOS.Tests
 		}
 
 		[Test]
-		public void Label()
+		public void PropertyToLabel()
 		{
-			for (int i = 0; i < 10000; i++)
+			for (int i = 0; i < Times; i++)
 			{
 				_viewModel.Text = i.ToString();
             	
@@ -36,7 +37,7 @@ namespace XamBind.iOS.Tests
 		[Test]
 		public void ButtonCanClick()
 		{
-			for (int i = 0; i < 10000; i++)
+			for (int i = 0; i < Times; i++)
 			{
 				_viewModel.CanSearch = !_viewModel.CanSearch;
             	
@@ -47,11 +48,39 @@ namespace XamBind.iOS.Tests
 		[Test]
 		public void ButtonClick()
 		{
-			for (int i = 0; i < 10000; i++)
+			for (int i = 0; i < Times; i++)
 			{
 				_viewModel.Searched = false;
 				_controller.Click();
 				Assert.IsTrue(_viewModel.Searched);
+			}
+		}
+
+		[Test]
+		public void PropertyToTextField()
+		{
+			var textField = _controller.GetTextField();
+			for (int i = 0; i < Times; i++)
+			{
+				_viewModel.TextField = i.ToString();
+
+				Assert.AreEqual(_viewModel.TextField, textField.Text);
+			}
+		}
+
+		[Test]
+		public void TextFieldToProperty()
+		{
+			var textField = _controller.GetTextField();
+
+			for (int i = 0; i < Times; i++)
+			{
+				textField.Text = i.ToString();
+
+				var notification = NSNotification.FromName(UITextField.TextFieldTextDidChangeNotification, textField);
+				NSNotificationCenter.DefaultCenter.PostNotification(notification);
+
+				Assert.AreEqual(textField.Text, _viewModel.TextField);
 			}
 		}
     }
