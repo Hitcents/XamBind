@@ -87,6 +87,6 @@ Global
 		{F2A76575-AA8D-4709-8EAE-D65EAD373920}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = XamBind.iOS.Tests\XamBind.iOS.Tests.csproj
+		StartupItem = XamBind.Droid.Tests\XamBind.Droid.Tests.csproj
 	EndGlobalSection
 EndGlobal

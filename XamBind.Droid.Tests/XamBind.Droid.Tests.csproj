@@ -29,6 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <ConsolePause>false</ConsolePause>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -52,6 +53,11 @@
     <Compile Include="TestsSample.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\XamBind.iOS.Tests\ViewModels\TestViewModel.cs">
+      <Link>ViewModels\TestViewModel.cs</Link>
+    </Compile>
+    <Compile Include="Activities\TestActivity.cs" />
+    <Compile Include="BoundActivityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -60,6 +66,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\layout\Test.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Activities\" />
+    <Folder Include="Resources\layout\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamBind.Droid\XamBind.Droid.csproj">
+      <Project>{25580DB4-7ADA-4052-BF96-CAFF6CF2B754}</Project>
+      <Name>XamBind.Droid</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
