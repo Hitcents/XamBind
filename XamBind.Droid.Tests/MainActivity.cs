@@ -2,6 +2,7 @@ using System.Reflection;
 using Android.App;
 using Android.OS;
 using Xamarin.Android.NUnitLite;
+using Android.Content;
 
 namespace XamBind.Droid.Tests
 {

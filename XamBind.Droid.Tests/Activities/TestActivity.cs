@@ -9,9 +9,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+[assembly: Instrumentation(Name = "android.test.InstrumentationTestRunner", TargetPackage = "com.xambind.tests")]
+
 namespace XamBind.Droid.Tests
 {
-    [Activity(Label = "TestActivity")]			
+	[Activity(Label = "TestActivity")]			
 	public class TestActivity : BoundActivity
     {
         protected override void OnCreate(Bundle bundle)

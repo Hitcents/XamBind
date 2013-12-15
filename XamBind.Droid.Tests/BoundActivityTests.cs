@@ -1,25 +1,32 @@
+using Android.Content;
+using Android.Test;
+using Android.App;
+using Android.OS;
 using System;
 using NUnit.Framework;
 using XamBind.iOS.Tests;
-using Android.Content;
-using Android.Test;
+using System.Threading.Tasks;
 
 namespace XamBind.Droid.Tests
 {
 	[TestFixture]
-    public class BoundActivityTests
+	public class BoundActivityTests
     {
 		private TestActivity _activity;
 		private TestViewModel _viewModel;
-		private InstrumentationTestRunner _runner;
+		private InstrumentationTestRunner _instrumentation;
 		private const int Times = 10000;
 
 		[SetUp]
 		public void SetUp()
 		{
-			_runner = new InstrumentationTestRunner();
 			_viewModel = new TestViewModel();
-			_activity = _runner.StartActivitySync(new Intent(_runner.Context, typeof(TestActivity))) as TestActivity;
+
+
+			_instrumentation = new InstrumentationTestRunner();
+
+			_activity = new TestActivity();
+			_instrumentation.CallActivityOnCreate(_activity, Bundle.Empty);
 		}
 
 		[Test]
