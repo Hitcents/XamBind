@@ -6,7 +6,7 @@ using MonoTouch.ObjCRuntime;
 
 namespace XamBind.iOS.Tests
 {
-	public partial class TestController : BoundController
+	public partial class TestController : BindingController
 	{
 		public TestController (IntPtr handle) : base (handle)
 		{

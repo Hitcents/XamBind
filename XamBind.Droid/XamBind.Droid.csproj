@@ -57,6 +57,10 @@
     <Compile Include="..\XamBind.iOS\PropertyObserver.cs">
       <Link>PropertyObserver.cs</Link>
     </Compile>
-    <Compile Include="BoundActivity.cs" />
+    <Compile Include="..\XamBind.iOS\IBindable.cs">
+      <Link>IBindable.cs</Link>
+    </Compile>
+    <Compile Include="BindingActivity.cs" />
+    <Compile Include="BindingExtensions.cs" />
   </ItemGroup>
 </Project>

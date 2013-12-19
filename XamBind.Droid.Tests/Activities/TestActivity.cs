@@ -2,30 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-[assembly: Instrumentation(Name = "android.test.InstrumentationTestRunner", TargetPackage = "com.xambind.tests")]
+using System.ComponentModel;
 
 namespace XamBind.Droid.Tests
-{
-	[Activity(Label = "TestActivity")]			
-	public class TestActivity : BoundActivity
+{	
+	public class TestActivity : IBindable
     {
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-
-			SetContentView(Resource.Layout.Test);
-        }
-
-		public TextView GetTextView()
+		public INotifyPropertyChanged ViewModel
 		{
-			return FindViewById<TextView>(Resource.Id.Text);
+			get;
+			set;
+		}
+
+		public PropertyObserver Observer
+		{
+			get;
+			set;
 		}
     }
 }
