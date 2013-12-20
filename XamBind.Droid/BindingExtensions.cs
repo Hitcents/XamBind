@@ -51,7 +51,7 @@ namespace XamBind
             {
                 bindable.Observer.Add<string>(name, text => editText.Text = text);
 
-                //editText.TextChanged += (sender, e) => viewModel.SetProperty(name, editText.Text);
+                editText.TextChanged += (sender, e) => viewModel.SetProperty(name, editText.Text);
                 return;
             }
 

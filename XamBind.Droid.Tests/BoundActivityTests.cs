@@ -17,7 +17,7 @@ namespace XamBind.Droid.Tests
 		private TestActivity _activity;
 		private TestViewModel _viewModel;
 		private View _view;
-		private const int Times = 10000;
+		private const int Times = 5000;
 
 		[SetUp]
 		public void SetUp()

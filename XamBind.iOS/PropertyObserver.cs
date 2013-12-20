@@ -8,28 +8,30 @@ namespace XamBind
 {
 	public class PropertyObserver
     {
-		private readonly INotifyPropertyChanged _target;
+		private readonly WeakReference<INotifyPropertyChanged> _target;
 		private readonly Dictionary<string, List<Action<object>>> _actions = new Dictionary<string, List<Action<object>>>();
-		private PropertyChangedEventHandler _handler;
 
 		public PropertyObserver(INotifyPropertyChanged target)
         {
-			_target = target;
-			_target.PropertyChanged += (_handler = OnPropertyChanged);
-        }
+            target.PropertyChanged += (sender, e) =>
+		    {
+			    List<Action<object>> actions;
+			    if (_actions.TryGetValue(e.PropertyName, out actions))
+			    {
+                    INotifyPropertyChanged obj;
+                    if (_target.TryGetTarget(out obj))
+                    {
+                        var value = obj.GetProperty(e.PropertyName);
+                        foreach (var action in actions)
+                        {
+                            action(value);
+                        }
+                    }
+			    }
+		    };
 
-		private void OnPropertyChanged (object sender, PropertyChangedEventArgs e)
-		{
-			List<Action<object>> actions;
-			if (_actions.TryGetValue(e.PropertyName, out actions))
-			{
-				var value = _target.GetProperty(e.PropertyName);
-				foreach (var action in actions)
-				{
-					action(value);
-				}
-			}
-		}
+            _target = new WeakReference<INotifyPropertyChanged>(target);
+        }
 
 		public void Add<T>(string propertyName, Action<T> action)
 		{
@@ -47,12 +49,20 @@ namespace XamBind
 			actions.Add(action);
 
 			//Fire initial event
-			action(_target.GetProperty(propertyName));
+            INotifyPropertyChanged target;
+            if (_target.TryGetTarget(out target))
+            {
+                action(target.GetProperty(propertyName));
+            }
 		}
 
 		public void InvokeMethod(string methodName)
 		{
-			_target.Invoke(methodName);
+            INotifyPropertyChanged target;
+            if (_target.TryGetTarget(out target))
+            {
+                target.Invoke(methodName);
+            }
 		}
     }
 }

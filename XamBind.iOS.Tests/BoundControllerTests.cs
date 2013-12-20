@@ -10,7 +10,7 @@ namespace XamBind.iOS.Tests
     {
 		private TestController _controller;
 		private TestViewModel _viewModel;
-		private const int Times = 10000;
+		private const int Times = 5000;
 
 		[SetUp]
 		public void SetUp()
