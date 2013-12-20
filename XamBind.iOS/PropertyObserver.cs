@@ -8,29 +8,34 @@ namespace XamBind
 {
 	public class PropertyObserver
     {
-		private readonly WeakReference<INotifyPropertyChanged> _target;
 		private readonly Dictionary<string, List<Action<object>>> _actions = new Dictionary<string, List<Action<object>>>();
+        private WeakReference<INotifyPropertyChanged> _target;
 
 		public PropertyObserver(INotifyPropertyChanged target)
         {
-            target.PropertyChanged += (sender, e) =>
-		    {
-			    List<Action<object>> actions;
-			    if (_actions.TryGetValue(e.PropertyName, out actions))
-			    {
-                    INotifyPropertyChanged obj;
-                    if (_target.TryGetTarget(out obj))
-                    {
-                        var value = obj.GetProperty(e.PropertyName);
-                        foreach (var action in actions)
-                        {
-                            action(value);
-                        }
-                    }
-			    }
-		    };
+            target.SetWeakHandler(
+                h => target.PropertyChanged += h, 
+                h => target.PropertyChanged -= h, 
+                OnPropertyChanged);
 
             _target = new WeakReference<INotifyPropertyChanged>(target);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            List<Action<object>> actions;
+            if (_actions.TryGetValue(e.PropertyName, out actions))
+            {
+                INotifyPropertyChanged obj;
+                if (_target.TryGetTarget(out obj))
+                {
+                    var value = obj.GetProperty(e.PropertyName);
+                    foreach (var action in actions)
+                    {
+                        action(value);
+                    }
+                }
+            }
         }
 
 		public void Add<T>(string propertyName, Action<T> action)

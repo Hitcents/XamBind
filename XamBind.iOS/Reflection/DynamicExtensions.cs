@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace XamBind.Reflection
@@ -61,6 +62,55 @@ namespace XamBind.Reflection
 		{
 			return target.GetPropertyInfo(propertyName).GetValue(target);
 		}
+
+        public static void SetWeakHandler<TSubscriber, TDelegate, TArgs>(
+            this TSubscriber subscriber,
+            Func<EventHandler<TArgs>, TDelegate> converter,
+            Action<TDelegate> add, Action<TDelegate> remove,
+            Action<TSubscriber, TArgs> action)
+            where TArgs : EventArgs
+            where TDelegate : class
+            where TSubscriber : class
+        {
+            var subscriberRef = new WeakReference(subscriber);
+            TDelegate handler = null;
+            handler = converter(new EventHandler<TArgs>(
+            (s, e) =>
+            {
+                var subs_strong_ref = subscriberRef.Target as TSubscriber;
+                if (subs_strong_ref != null)
+                {
+                    action(subs_strong_ref, e);
+                }
+                else
+                {
+                    remove(handler);
+                    handler = null;
+                }
+            }));
+            add(handler);
+        }
+
+        public static void SetWeakHandler(
+            this INotifyPropertyChanged subscriber,
+            Action<PropertyChangedEventHandler> add,
+            Action<PropertyChangedEventHandler> remove,
+            Action<object, PropertyChangedEventArgs> action)
+        {
+            SetWeakHandler<INotifyPropertyChanged, PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                subscriber, h => (o, e) => h(o, e), add, remove, action);
+        }
+
+        public static void SetWeakHandler<TSubscriber, TArgs>(
+            this TSubscriber subscriber, 
+            Action<EventHandler<TArgs>> add, 
+            Action<EventHandler<TArgs>> remove, 
+            Action<TSubscriber, TArgs> action)
+            where TArgs : EventArgs
+            where TSubscriber : class
+        {
+            SetWeakHandler<TSubscriber, EventHandler<TArgs>, TArgs>(subscriber, h => h, add, remove, action);
+        }
     }
 }
 
